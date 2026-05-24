@@ -1,5 +1,6 @@
 package in.sp.main.entity;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,6 @@ public class OrderEntity {
 	@PrePersist
 	protected void onCreated() {
 		this.orderId="ORD"+System.currentTimeMillis();
-		this.createdAt=LocalDateTime.now();
+		this.createdAt=LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
 	}
 }
