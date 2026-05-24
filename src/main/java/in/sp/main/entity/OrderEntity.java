@@ -49,7 +49,6 @@ public class OrderEntity {
 	@JoinColumn(name = "shop_id",nullable = false)
 	private ShopEntity shop;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<OrderItemEntity> orderItems = new ArrayList<>();
 
