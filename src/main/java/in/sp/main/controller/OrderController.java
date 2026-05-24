@@ -1,6 +1,7 @@
 package in.sp.main.controller;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.sp.main.filter.JwtFilter;
 import in.sp.main.io.OrderRequest;
 import in.sp.main.io.OrderResponse;
 import in.sp.main.service.OrderService;
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderController {
 	private final OrderService orderService;
+	private final JwtFilter jwtFilter;
 
 	@PostMapping("/create-order")
 	public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest){
@@ -41,11 +45,14 @@ public class OrderController {
 	}
 
 	@GetMapping("/allorders")
-	public  ResponseEntity<List<OrderResponse>> getLatestOrders(){
+	public  ResponseEntity<Page<OrderResponse>> getLatestOrders(@RequestParam(defaultValue = "0") int page,
+	   @RequestParam(defaultValue = "10") int size){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		List<OrderResponse> latestOrders= orderService.getLatestOrders(email);
+		Page<OrderResponse> latestOrders= orderService.getLatestOrders(email,page,size);
 		return new ResponseEntity<>(latestOrders,HttpStatus.OK);
 	}
+	
+	
 
 }
