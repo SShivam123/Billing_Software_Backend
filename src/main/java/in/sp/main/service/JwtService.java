@@ -20,16 +20,6 @@ public class JwtService {
 	@Value("${jwt.secret.key}")
 private String secretkey;
 
-//	public JwtService() {
-//		try {
-//			KeyGenerator keygen = KeyGenerator.getInstance("HmacSHA256");
-//			SecretKey sk = keygen.generateKey();
-//			secretkey = Base64.getEncoder().encodeToString(sk.getEncoded());
-//		} catch (NoSuchAlgorithmException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	public String generateToken(String UserName) {
 		Map<String,Object> claims = new HashMap<>();
 		return Jwts.builder()

@@ -3,9 +3,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import in.sp.main.Enums.PaymentMethod;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
